@@ -1,2 +1,2 @@
 # CheckAppCompatEditText
- An AppCompatEditText that validates the input.
+ 一个检查输入内容的 AppCompatEditText 。
