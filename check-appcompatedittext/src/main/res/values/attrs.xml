@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CheckAppCompatEditTexts">
+        <attr name="regex" format="string"/>
+        <attr name="is_real_time_check" format="boolean"/>
+        <attr name="use_built_in_regex">
+            <enum name="email" value="0"/>
+            <enum name="phone" value="1"/>
+            <enum name="date" value="2"/>
+        </attr>
+    </declare-styleable>
+</resources>
