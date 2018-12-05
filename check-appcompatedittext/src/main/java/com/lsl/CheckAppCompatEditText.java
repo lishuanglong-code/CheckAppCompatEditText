@@ -12,11 +12,6 @@ import android.util.AttributeSet;
  * 1.实时对输入的内容进行检查，返回成功或者失败。
  * 2.全部填写完整后，最后在进行检查
  * <p>
- * 检查使用正则表达式，内置几种常见的输入类型检查：
- * 1.邮箱地址
- * 2.手机号码
- * 3.日期
- * <p>
  * creation time ：2018/12/4
  * author ：lishuanglong
  */
@@ -25,7 +20,6 @@ public class CheckAppCompatEditText extends AppCompatEditText {
     private String regex = null;
     private boolean mIsRealTimeCheck = false;
     private ICheck mICheckMode;
-    private int mUseBuiltInRegex;
     private RealTimeCheckResult listener = null;
     private RealTimeCheck mRealTimeCheck;
 
@@ -39,23 +33,14 @@ public class CheckAppCompatEditText extends AppCompatEditText {
 
     public CheckAppCompatEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        init();
     }
 
     /**
      * 初始化获取属性等操作
      */
-    private void init(Context context, AttributeSet attrs) {
+    private void init() {
         mICheckMode = new CheckImpl();
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CheckAppCompatEditTexts);
-        if (typedArray != null) {
-            mUseBuiltInRegex = typedArray.getInteger(R.styleable.CheckAppCompatEditTexts_use_built_in_regex, -1);
-            regex = typedArray.getString(R.styleable.CheckAppCompatEditTexts_regex);
-            mIsRealTimeCheck = typedArray.getBoolean(R.styleable.CheckAppCompatEditTexts_is_real_time_check, false);
-            typedArray.recycle();
-            switchBuiltInRegex();
-            realTimeCheck();
-        }
     }
 
     /**
@@ -67,37 +52,12 @@ public class CheckAppCompatEditText extends AppCompatEditText {
     }
 
     /**
-     * 使用内置的正则检查
-     */
-    public CheckAppCompatEditText useBuiltInRegex(Intent builtInRegex) {
-        switchBuiltInRegex();
-        return this;
-    }
-
-    /**
      * 设置是否实时检查
      */
     public CheckAppCompatEditText setRealTimeCheck(boolean mIsRealTimeCheck) {
         this.mIsRealTimeCheck = mIsRealTimeCheck;
         realTimeCheck();
         return this;
-    }
-
-    /**
-     * 设置实时检查结果的监听
-     */
-    public CheckAppCompatEditText setRealTimeCheckResultListener(RealTimeCheckResult listener) {
-        this.listener = listener;
-        mRealTimeCheck.setRealTimeCheckResult(listener);
-        return this;
-    }
-
-    /**
-     * 获取检查结果
-     */
-    public boolean getInputCheckResult() {
-        String input = this.getText().toString();
-        return mICheckMode.check(input, regex);
     }
 
     /**
@@ -115,20 +75,20 @@ public class CheckAppCompatEditText extends AppCompatEditText {
     }
 
     /**
-     * 选择内置的正则表达式
+     * 设置实时检查结果的监听
      */
-    private void switchBuiltInRegex() {
-        switch (mUseBuiltInRegex) {
-            case BuiltInRegex.EMAIL:
-                regex = "";
-                break;
-            case BuiltInRegex.PHONE:
-                regex = "";
-                break;
-            case BuiltInRegex.DATE:
-                regex = "";
-                break;
-        }
+    public CheckAppCompatEditText setRealTimeCheckResultListener(RealTimeCheckResult listener) {
+        this.listener = listener;
+        mRealTimeCheck.setRealTimeCheckResult(listener);
+        return this;
+    }
+
+    /**
+     * 获取检查结果
+     */
+    public boolean getInputCheckResult() {
+        String input = this.getText().toString();
+        return mICheckMode.check(input, regex);
     }
 
     /**
