@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 boolean inputCheckResult = mCheckText.getInputCheckResult();
-                L.d(L.TAG, "xml --> getInputCheckResult --> " + inputCheckResult);
+                L.d(L.TAG, "getInputCheckResult --> " + inputCheckResult);
             }
         });
 
