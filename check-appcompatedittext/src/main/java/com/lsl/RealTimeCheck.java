@@ -29,6 +29,7 @@ public class RealTimeCheck {
     }
 
     public void startRealTimeCheck() {
+        endRealTimeCheck();
         textView.addTextChangedListener(mTextWatcher);
     }
 

@@ -37,7 +37,7 @@ public class CheckAppCompatEditText extends AppCompatEditText {
     }
 
     /**
-     * 初始化获取属性等操作
+     * 初始化
      */
     private void init() {
         mICheckMode = new CheckImpl();
@@ -45,6 +45,8 @@ public class CheckAppCompatEditText extends AppCompatEditText {
 
     /**
      * 设置正则表达式
+     *
+     * @param regex 正则表达式
      */
     public CheckAppCompatEditText setRegex(String regex) {
         this.regex = regex;
@@ -53,6 +55,8 @@ public class CheckAppCompatEditText extends AppCompatEditText {
 
     /**
      * 设置是否实时检查
+     *
+     * @param mIsRealTimeCheck 是否要开启实时检查
      */
     public CheckAppCompatEditText setRealTimeCheck(boolean mIsRealTimeCheck) {
         this.mIsRealTimeCheck = mIsRealTimeCheck;
@@ -76,6 +80,8 @@ public class CheckAppCompatEditText extends AppCompatEditText {
 
     /**
      * 设置实时检查结果的监听
+     *
+     * @param listener 实时检查结果监听实例
      */
     public CheckAppCompatEditText setRealTimeCheckResultListener(RealTimeCheckResult listener) {
         this.listener = listener;
@@ -85,6 +91,8 @@ public class CheckAppCompatEditText extends AppCompatEditText {
 
     /**
      * 获取检查结果
+     *
+     * @return true 表示检查通过，false 表示检查失败
      */
     public boolean getInputCheckResult() {
         String input = this.getText().toString();
@@ -95,8 +103,14 @@ public class CheckAppCompatEditText extends AppCompatEditText {
      * 实时检查输入的接口
      */
     public interface RealTimeCheckResult {
+        /**
+         * 检查结果失败，你可以展示失败后ui等操作
+         */
         void checkFailure();
 
+        /**
+         * 检查结果成功，你可以展示成功后ui等操作
+         */
         void checkSucceed();
     }
 
@@ -104,6 +118,12 @@ public class CheckAppCompatEditText extends AppCompatEditText {
      * 实际用来检查的接口
      */
     public interface ICheck {
+        /**
+         * 检查方法
+         *
+         * @param str   要检查的内容
+         * @param regex 正则表达式
+         */
         boolean check(String str, String regex);
     }
 }

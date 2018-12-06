@@ -1,4 +1,4 @@
-package com.lsl;
+package com.test.lsl;
 
 import android.util.Log;
 
